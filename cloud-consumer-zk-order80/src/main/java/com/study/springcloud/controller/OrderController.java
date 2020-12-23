@@ -22,11 +22,11 @@ public class OrderController {
     @Autowired
     private RestTemplate restTemplate;
 
-    private static final String SERVICE_URI = "http://CLOUD-PAYMENT-SERVICE";
+    private static final String SERVICE_URI = "http://cloud-provider-payment";
 
-    @GetMapping("/consumer/getPaymet/{id}")
-    public CommonResult<Payment> getPayment(@PathVariable("id") long id){
-        return restTemplate.getForObject(SERVICE_URI + "/getPaymentById/" + id,CommonResult.class);
+    @GetMapping("/get")
+    public String getPayment(){
+        return restTemplate.getForObject(SERVICE_URI + "/get",String.class);
     }
 
 }

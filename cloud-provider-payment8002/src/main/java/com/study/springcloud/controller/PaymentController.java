@@ -6,12 +6,8 @@ import com.study.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -27,9 +23,6 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    @Autowired
-    private DiscoveryClient discoveryClient;
-
     @Value("${server.port}")
     private int port;
 
@@ -38,7 +31,7 @@ public class PaymentController {
         if (Objects.nonNull(payment)) {
             int insert = paymentService.insert(payment);
             if (insert > 0) {
-                return new CommonResult(200, "ok", insert);
+                return new CommonResult(200, "ok:" + port, insert);
             } else {
                 return new CommonResult(500, "error");
             }
@@ -55,23 +48,5 @@ public class PaymentController {
         } else {
             return new CommonResult(500, "error");
         }
-    }
-
-
-
-    @GetMapping("/getDiscoveryClient")
-    public DiscoveryClient getDiscoveryClient(){
-        List<String> services = discoveryClient.getServices();
-        for (String service : services) {
-            log.info("*********"+ service);
-        }
-
-
-        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
-        for (ServiceInstance instance : instances) {
-            log.info("********"+instance.getHost() + "\t" + instance.getInstanceId() + "\t" + instance.getUri());
-
-        }
-        return discoveryClient;
     }
 }
