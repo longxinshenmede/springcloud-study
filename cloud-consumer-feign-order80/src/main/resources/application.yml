@@ -1,0 +1,25 @@
+server:
+  port: 80
+spring:
+  application:
+    name: cloud-consumer-80
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+      #集群配置
+#      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+
+# openfeign配置超时时间
+ribbon:
+  ReadTimeout: 5000
+  ConnectTimeout: 5000
+
+# 开启feign日志
+logging:
+  level:
+    #指定接口
+    com.study.springcloud.service.PaymentFeignService: debug

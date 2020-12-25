@@ -7,4 +7,6 @@ eureka:
     register-with-eureka: false #不注册自己
     fetch-registry: false #注册中心不需要去检索其他注册中心
     service-url:
-      defaultZone: http://eureka7002.com/eureka/
+      defaultZone: http://localhost:7001/eureka/
+      #集群配置 其他eureka ，单机配置自己的ip
+#      defaultZone: http://eureka7002.com/eureka/

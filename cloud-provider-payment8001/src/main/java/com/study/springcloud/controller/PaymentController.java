@@ -1,5 +1,6 @@
 package com.study.springcloud.controller;
 
+import cn.hutool.core.util.ReUtil;
 import com.study.springcloud.entities.CommonResult;
 import com.study.springcloud.entities.Payment;
 import com.study.springcloud.service.PaymentService;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author lijingyu
@@ -55,6 +58,12 @@ public class PaymentController {
         } else {
             return new CommonResult(500, "error");
         }
+    }
+
+    @GetMapping("/timeout")
+    public String timeout() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(3);
+        return port + "";
     }
 
 
